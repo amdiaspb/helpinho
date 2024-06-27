@@ -1,0 +1,104 @@
+
+<div class="
+  flex flex-col w-full text-neutral-700
+  bg-blend-hard-light bg-[linear-gradient(120deg,rgb(255,250,250),rgb(255,149,177)),url('/noise-texture.png')]
+  {{ context.login() ? 'pb-20' : 'h-screen' }}
+">
+  <app-header class="p-8 mx-auto max-w-[1400px] w-full"></app-header>
+
+  <!-- OFF -->
+   @if (!context.login()) {
+    <div class="h-[13%]"></div>
+    <div class="flex h-max -bg-black/20 grow px-8 mx-auto max-w-[1400px] w-full">
+      <div class="flex flex-col items-center -bg-pink-500/20 flex-[10_1_0]">
+        <div>
+          <ul class="flex gap-4 mb-7 p-5 px-7 w-fit bg-white/40 rounded-[1.25rem]">
+            <li>
+              <div class="inline-flex w-5 h-5 font-medium text-sm justify-center items-center text-white bg-[#ff2e6b] rounded-full">✓</div>
+              Registro grátis
+            </li>
+            <li>
+              <div class="inline-flex w-5 h-5 font-medium text-sm justify-center items-center text-white bg-[#ff2e6b] rounded-full">✓</div>
+              Sem taxas
+            </li>
+            <li>
+              <div class="inline-flex w-5 h-5 font-medium text-sm justify-center items-center text-white bg-[#ff2e6b] rounded-full">✓</div>
+              Rápido e prático
+            </li>
+          </ul>
+          <h1 class="max-w-[700px] mb-7 text-5xl font-light">
+            Faça a diferença com apenas
+            <span class="font-bold text-[#f40b59]">um helpinho</span>
+          </h1>
+          <p class="max-w-[500px] mb-7 text-2xl">
+            Os helpinho podem parecer pequenos, mas juntos fazemos
+            <span class="font-bold text-[#f40b59]">diferença na vida de todos</span>
+          </p>
+          <button routerLink="/signup" class="w-fit p-4 px-6 text-white bg-[#ff2e6b] rounded-[18px] font-medium">
+            Registre-se grátis
+          </button>
+        </div>
+      </div>
+      <div class="z-10 flex justify-center gap-8 -bg-blue-500/20 flex-[9_1_0]">
+        <div class="relative w-[300px] h-[530px] rounded-[220px] bg-pink-500 bg-[url('/home1.png')] bg-center bg-cover">
+          <img src="line1.png" class="absolute -bottom-10 -left-36 -z-10">
+        </div>
+        <div class="relative w-[200px] h-[400px] rounded-[220px] mt-32 bg-pink-500 bg-[url('/home2.jpg')] bg-center bg-cover">
+          <img src="line2.png" class="absolute bottom-0 -left-5">
+        </div>
+      </div>
+    </div>
+  } @else {
+    <!-- ON -->
+    <div class="flex max-w-[1000px] w-full mt-8 mx-auto justify-between">
+      <div>
+        <h1 class="flex mb-4 text-[40px] font-light">
+          Olá
+          <span class="block ml-3 mt-[3px] text-5xl font-bold w-[550px] overflow-hidden text-ellipsis whitespace-nowrap">{{ context.userInfo()?.user?.name }}</span>
+        </h1>
+
+        <p class="mb-4 max-w-[600px] text-2xl">
+          Vamos dá um
+          <span class="font-bold text-[#ff2e6b]">helpinho</span>
+          hoje? Separamos uma seleção especial para você
+        </p>
+
+        <div class="flex gap-10 w-fit p-6 bg-white/40 rounded-[20px]">
+          <p class="flex flex-col text-[18px] leading-3">
+            Acompanhando
+            <span>
+              <span class="text-2xl text-[#f40b59] font-semibold">{{ userInfo()?.helpDonated?.count }}</span>
+              helpinhos
+            </span>
+          </p>
+          <p class="flex flex-col text-[18px] leading-3">
+            Criou
+            <span>
+              <span class="text-2xl text-[#ff2e6b] font-semibold">{{ userInfo()?.createdHelpCount }}</span>
+              helpinhos
+            </span>
+          </p>
+        </div>
+        <button routerLink="/create" class="mt-6 p-4 px-6 w-fit bg-[#ff2e6b] text-white rounded-lg">✨ Criar Helpinho!</button>
+      </div>
+
+      <div class="relative w-[207px] h-[250px] bg-[url('/badge.png')]">
+        <div class="mt-9 text-center">
+          <p class="text-sm">Você já doou</p>
+          <p class="text-[40px] font-bold leading-10 tracking-tight text-[#f40b59] [text-shadow:_1px_1px_0px_rgb(0_0_0_/_80%)]">
+            <span class="text-[17px] font-normal -mr-1">R$</span>
+            {{ userInfo()?.helpDonated?.value | currency : 'BRL' : '' }}
+          </p>
+        </div>
+        <div class="mt-9 text-center">
+          <p class="text-[40px] font-bold leading-10 tracking-tight text-[#f40b59] [text-shadow:_1px_1px_0px_rgb(0_0_0_/_80%)]">
+            {{ userInfo()?.helpDonated?.count }}
+          </p>
+          <p class="text-sm">Helpinhos alegres</p>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+<home-main></home-main>

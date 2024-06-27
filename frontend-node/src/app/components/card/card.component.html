@@ -1,0 +1,41 @@
+<div class="h-[230px] relative bg-cover bg-center shadow-inner overflow-hidden">
+  <img [src]="data()?.image" class="w-full h-full object-cover object-center">
+  <p class="absolute bottom-4 right-4 p-1 px-3 bg-pink-200 text-pink-600 text-sm font-semibold rounded-3xl shadow">
+    {{ data()?.tag }}
+  </p>
+</div>
+
+<div class="flex flex-col justify-between h-[260px] p-5">
+  <div class="flex gap-2">
+    <div class="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden outline outline-2 outline-neutral-200">
+      <img [src]="data()?.user?.image" class="bg-white w-14 h-14 object-cover">
+    </div>
+    <div class="flex flex-col mt-0.5 text-sm">
+      <p class="font-semibold leading-3">{{ data()?.user?.name }}</p>
+      <p class="text-[13px] text-neutral-500">{{ data()?.user?.email }}</p>
+    </div>
+  </div>
+  
+  <div class="space-y-3 -mt-3">
+    <p class="font-semibold text-2xl">{{ data()?.title }}</p>
+    <p class=" line-clamp-2">{{ data()?.description }}</p>
+  </div>
+  
+  <ul class="flex items-center ml-[0.625rem]">
+    @for (item of data()?.helpDonated?.images; track $index; let idx = $index) {
+      <li class="-ml-[0.625rem]">
+        <div class="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden outline outline-2 outline-neutral-200">
+          <img [src]="item" class="bg-white w-14 h-14 object-cover">
+        </div>
+      </li>
+    }
+    @if (data()?.helpDonated?.len! > 10) {
+      <li class="flex items-center justify-center w-8 h-8 -ml-[0.625rem] rounded-full bg-pink-200 text-pink-600 text-sm font-semibold outline outline-2 outline-pink-200">
+        +{{ data()?.helpDonated?.len! + 10 }}
+      </li>
+    } @else if (data()?.helpDonated?.len!) {
+      <p class="ml-2 text-sm text-neutral-400">✦ {{ data()?.helpDonated?.len! > 1 ? "Contribuiram!" : 'Contribuiu!' }}</p>
+    }
+  </ul>
+
+</div>

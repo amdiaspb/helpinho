@@ -1,0 +1,42 @@
+<div class="flex flex-col lg:flex-row max-w-[1400px] mx-auto lg:h-screen p-5 lg:p-10">
+  <div class="flex flex-col justify-between flex-grow-[2] lg:flex-1 p-4 lg:p-8 text-neutral-700">
+    <a routerLink="/home" class="self-center mb-5 lg:mb-0 lg:self-auto"><img src="logo-h.png" alt=""></a>
+
+    <div class="flex mb-6 flex-col max-w-[400px] self-center w-full items-center">
+      
+      <h1 class="mb-1 font-semibold text-3xl">Registre-se grátis</h1>
+      <p class="mb-6 text-neutral-500 text-center">Seja bem vindo! Estamos felizes em te-lo na nossa rede apoio</p>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="w-full">
+        <input-text [control]="signupForm.get('name')" class="mb-5" inputType="text" title="Nome*" placeholder="Como podemos lhe chamar"/>
+        <input-text [control]="signupForm.get('email')" class="mb-5" inputType="email" title="Email*" placeholder="Escreva seu melhor email"/>
+        <div class="mb-5 flex gap-4 w-full">
+          <input-text [control]="signupForm.get('cpf')" class="w-[calc(50%-0.5rem)]" inputType="text" title="CPF/CNPJ*" placeholder="000.000.000-00"/>
+          <input-text [control]="signupForm.get('number')" class="w-[calc(50%-0.5rem)]" inputType="tel" title="Telefone*" placeholder="(00) 0 0000-0000"/>
+        </div>
+        <input-text [control]="signupForm.get('password')" class="mb-10" inputType="password" title="Senha*" hint="No mínimo 8 caracteres, Letras e número"/>
+
+        <button type="submit" class="mb-4 w-full py-2.5 rounded-lg shadow-sm font-medium bg-[#f40b59] text-white hover:bg-[#d30a4d]">
+          Cadastre-se grátis
+        </button>
+      </form>
+
+      <button class="mb-6 flex justify-center gap-2 w-full py-2.5 border border-neutral-400/70 shadow-sm rounded-lg font-semibold hover:bg-neutral-100 hover:border-neutral-400">
+        <img src="google-icon.png" alt="">
+        <p>Continuar com Google</p>
+      </button>
+
+      <div class="flex gap-1 text-sm">
+        <p>Já tem uma conta?</p>
+        <a routerLink="/login" class="font-bold text-[#f40b59] hover:text-[#d30a4d]">Faça login</a>
+      </div>
+    </div>
+
+    <div class="hidden lg:flex justify-between text-sm">
+      <p>© Helpinho 2024</p>
+      <p>{{ 'help@helpinho.com' }}</p>
+    </div>
+  </div>
+
+  <login-carousel class="mx-auto w-full max-w-[675px] h-[320px] lg:h-full lg:flex-1"/>
+</div>

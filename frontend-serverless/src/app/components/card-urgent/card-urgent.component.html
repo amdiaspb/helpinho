@@ -1,0 +1,44 @@
+<div 
+  class="relative flex flex-col justify-between h-full p-5 text-white bg-cover bg-center shadow-inner"
+  [ngStyle]="bgStyle()"
+>
+  <div class=" absolute top-0 left-0 w-full h-full mix-blend-multiply bg-blend-hard-light bg-[linear-gradient(190deg,rgb(255,229,229),rgb(227,130,156)),url('/noise-texture.png'),url('/noise-texture.png')]"></div>
+  
+  <div class="z-10 flex flex-col gap-6">
+
+    <div class="flex justify-between">
+      <div class="flex items-center gap-2">
+        <img src="section.png" class="w-8 h-8 rounded-full object-cover">
+        <div class="flex flex-col mt-0.5 text-sm">
+          <p class="font-semibold leading-3">{{ data()?.user?.name }}</p>
+        </div>
+      </div>
+      <p class="flex items-center p-1 px-3 bg-pink-200 text-pink-600 text-sm font-semibold rounded-3xl shadow">
+        {{ data()?.tag }}
+      </p>
+    </div>
+    
+    <div class="space-y-3">
+      <p class="font-semibold text-2xl">{{ data()?.title }}</p>
+      <p class=" line-clamp-[10]">{{ data()?.description }}</p>
+    </div>
+    
+  </div>
+
+  <div class="z-10 space-y-6">
+    <p class="p-2 text-sm rounded-lg text-center font-medium bg-[#FF2637]/40">
+      Helpinho urgente validado pela nossa equipe
+    </p>
+
+    <ul class="flex ml-[0.625rem]">
+      @for (item of [].constructor(10); track $index; let idx = $index) {
+        <li class="-ml-[0.625rem]">
+          <img src="section.png" class="w-8 h-8 rounded-full object-cover outline outline-2 outline-white">
+        </li>
+      }
+      <li class="flex items-center justify-center w-8 h-8 -ml-[0.625rem] rounded-full bg-pink-200 text-pink-600 text-sm font-semibold outline outline-2 outline-white">
+        +5
+      </li>
+    </ul>
+  </div>
+</div>

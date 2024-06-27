@@ -1,0 +1,84 @@
+<ol class="flex mb-28 gap-12 justify-center">
+  <li class="flex gap-6 items-center">
+    <div class="font-['Montserrat'] font-bold text-5xl text-[#ff2e6b]">1.</div>
+    <div class="flex gap-0.5 max-w-[190px] flex-col">
+      <p class="font-bold text-[#530020]">Escolha</p>
+      <p class="text-neutral-500/90 leading-5">Escolha um helpinho que deseja ajudar</p>
+    </div>
+  </li>
+  <li class="flex gap-6 items-center">
+    <div class="font-['Montserrat'] font-bold text-5xl text-[#ff2e6b]">2.</div>
+    <div class="flex gap-0.5 max-w-[190px] flex-col">
+      <p class="font-bold text-[#530020]">Doe</p>
+      <p class="text-neutral-500/90 leading-5">
+        O valor é você quem decide e ele vai 
+        <span class="text-[#ff2e6b] font-medium">todo</span>
+        para quem escolher
+      </p>
+    </div>
+  </li>
+  <li class="flex gap-6 items-center">
+    <div class="font-['Montserrat'] font-bold text-5xl text-[#ff2e6b]">3.</div>
+    <div class="flex gap-0.5 max-w-[190px] flex-col">
+      <p class="font-bold text-[#530020]">Aproveite</p>
+      <p class="text-neutral-500/90 leading-5">Doar gera felicidade em você e pra quem recebeu. </p>
+    </div>
+  </li>
+  <li class="flex gap-6 items-center">
+    <div class="font-['Montserrat'] font-bold text-5xl text-[#ff2e6b]">4.</div>
+    <div class="flex gap-0.5 max-w-[190px] flex-col">
+      <p class="font-bold text-[#530020]">Acompanhe</p>
+      <p class="text-neutral-500/90 leading-5">Fique ligado, e veja se o helpinho acançou o objetivo </p>
+    </div>
+  </li>
+</ol>
+
+<div class="flex gap-4 mb-16 px-16 mx-auto max-w-[1400px]">
+  <div class="w-full">
+    <input [(ngModel)]="search" type="text" placeholder="Pesquise o que você quer dar um helpinho"
+      class="border w-full border-neutral-400 rounded-lg p-5 pl-12 shadow-sm placeholder:text-neutral-500 hover:border-neutral-500"
+    >
+  </div>
+
+  <div class="min-w-[320px] relative inline-block text-left">
+    <div>
+      <button (click)="toogleShow()" type="button" class="
+        inline-flex w-full justify-between items-center gap-x-1.5 bg-white rounded-lg p-5 shadow-sm border border-gray-300 hover:bg-gray-50
+        {{ category() === '' ? 'text-neutral-400' : 'text-neutral-600' }}
+      ">
+        @if (category() === '') {
+          Escolha uma categoria
+        } @else { 
+          {{ category() }}
+        }
+        <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+  
+    @if (show()) {
+      <div class="absolute right-0 z-10 mt-2 w-[320px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div class="py-1">
+          @for (item of categories; track item) {
+            <a (click)="selectCategory(item)" class="block px-4 py-3 cursor-pointer text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">{{ item }}</a>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- <ul class="mx-auto px-10 flex flex-wrap gap-8"> -->
+<ul class="test p-8 mx-auto max-w-[1400px]">
+  @if (helpsFiltered()) {
+    @for (item of helpsFiltered(); track $index; let idx = $index) {
+      <li card (click)="toHelpPage(item.id)" [data]="item" class="cursor-pointer w-[385px] h-[490px] rounded-[28px] shadow-lg overflow-hidden"></li>
+    }
+  }
+  <!-- @if (helps$ | async; as helps) {
+    @for (item of helps; track $index; let idx = $index) {
+      <li card (click)="toHelpPage(item.id)" [data]="item" class="cursor-pointer w-[385px] h-[490px] rounded-[28px] shadow-lg overflow-hidden"></li>
+    }
+  } -->
+</ul>

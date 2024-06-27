@@ -1,0 +1,119 @@
+<div class="flex flex-col min-h-screen p-8 mx-auto max-w-[1400px] text-neutral-700">
+
+  <app-header class="mb-8"></app-header>
+
+  <!-- [#ff2e6b] -->
+  <main class="flex flex-col grow -bg-black/20">
+    <!--   mb-3 w-[500px] h-20 -->
+    <div class="mb-3 flex self-center divide-x py-4 border border-neutral-300 rounded-2xl">
+        @for (item of stepsData; track $index; let i = $index) {
+          <div class="flex px-4 items-center border-neutral-300">
+            @if ($index === step()) {
+              <div class="w-12 h-12 bg-[#ff2e6b] rounded-full shadow-md"></div>
+              <div class="ml-3">
+                <p class="leading-3 text-[13px] text-[#ff2e6b] font-bold">Passo {{ step() + 1 }}/4</p>
+                <p>{{ stepInfo().subtitle }}</p>
+              </div>
+            } @else {
+              <div class="w-12 h-12 bg-neutral-200/50 rounded-full"></div>
+            }
+          </div>
+        }
+    </div>
+
+    <div class="flex flex-col mb-6 p-5 w-full grow bg-white rounded-3xl">
+      <h1 class="mb-2 text-xl font-bold">{{ stepInfo().title }}</h1>
+      <p class="mb-6 font-light max-w-[450px] leading-5">{{ stepInfo().text }}</p>
+      @if (step() === 0) {
+        <ul class="flex flex-wrap gap-4">
+          @for (item of categories; track item) {
+            <li (click)="category.set(item)" class="
+              flex justify-center items-center w-[145px] h-[110px] rounded-xl border border-neutral-200 cursor-pointer
+              {{ category() === item ? 'border-2 border-pink-400 font-semibold' : '' }}
+            ">
+              {{ item }}
+            </li>
+          }
+        </ul>
+      } @else if (step() === 1) {
+        <div [formGroup]="helpForm" class="space-y-4">
+          <input-text [control]="helpForm.get('title')" inputType="text" title="Titulo do helpinho"></input-text>
+          <input-text [control]="helpForm.get('image')" inputType="text" title="Imagem" placeholder="Coloque o link da imagem do seu helpinho"></input-text>
+          <input-text [control]="helpForm.get('description')" inputType="text" title="Descrição" placeholder="Escreva a descrição do seu helpinho, não economize nas palavras"></input-text>
+        </div>
+      } @else if (step() === 2) {
+        <ul class="flex flex-wrap grow -mt-20 items-center justify-center gap-4">
+          @for (item of values; track item) {
+            <li (click)="value.set(item)" class="
+              flex justify-center items-center w-[145px] h-[110px] rounded-xl border border-neutral-200 cursor-pointer
+              {{ value() === item ? 'border-2 border-pink-400 font-semibold' : '' }}
+            ">
+              {{ item | currency : 'BRL' }}
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="relative p-4 py-8 border border-dashed bg-neutral-50 border-neutral-300 rounded-2xl">
+          <p class="absolute -top-[26px] right-[6px] text-sm text-neutral-400">Visualização</p>
+
+          <div class="mb-7 text-center">
+            <h2 class="text-2xl font-semibold text-neutral-800 leading-7">{{ helpForm.value.title | uppercase }}</h2>
+            <p class="text-neutral-500">{{ category() }}</p>
+          </div>
+
+          <div class="flex gap-10">
+
+            <div class="flex flex-col items-center gap-6 flex-1 grow-[2] -bg-pink-500/30">
+              <div class="flex justify-center aspect-video w-full bg-neutral-300 overflow-hidden rounded-lg">
+                <img class="h-full" [src]="helpForm.value.image" alt="">
+              </div>
+              <p class="text-left px-4">{{ helpForm.value.description }}</p>
+            </div>
+
+            <div class="flex-1 -bg-blue-500/30">
+              <div class="flex flex-col gap-6">
+   
+                <div>
+                  <div class="relative mb-4 w-full h-[6px] bg-neutral-200">
+                    <div class="absolute w-[80%] h-full bg-[#f40b59] "></div>
+                  </div>
+                  <p class="text-3xl font-semibold text-[#f40b59]"> {{ value()*0.8 | currency : 'BRL' }}</p>
+                  <p class="text-sm text-neutral-500">
+                    contribuido da meta de
+                    <span class="font-semibold">{{ value() | currency : 'BRL' }}</span>
+                  </p>
+                </div>
+                <div>
+                  <p class="text-3xl font-semibold text-neutral-600/[85%]"> 17</p>
+                  <p class="text-sm text-neutral-500">helpinhos</p>
+                </div>
+                <button class="mb-4 py-4 w-full bg-[#f40b59] text-white text-center font-medium rounded-lg">
+                  Ajudar este helpinho
+                </button>
+                <div class="flex gap-4">
+                  <div class="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden outline outline-2 outline-white/50">
+                    <img [src]="context.userInfo()?.user?.image" class="bg-white w-14 h-14 object-cover">
+                  </div>
+                  <div class="flex flex-col text-sm">
+                    <p class="font-semibold leading-4">{{ context.userInfo()?.user?.name }}</p>
+                    <p class="text-[13px] text-neutral-600">{{ context.userInfo()?.user?.email }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div>
+
+    <div class="self-end space-x-4">
+      <button (click)="stepBack()" class="px-4 py-2.5 text-sm border border-neutral-400/70 shadow-sm rounded-lg font-semibold hover:bg-neutral-100 hover:border-neutral-400">
+        {{ step() > 0 ? 'Voltar' : 'Cancelar' }}
+      </button>
+      <button (click)="stepNext()" class="px-4 py-2.5 text-sm rounded-lg shadow-sm font-medium bg-[#f40b59] text-white hover:bg-[#d30a4d]">
+        {{ step() === 3 ? 'Publicar Helpinho' : 'Continuar' }}
+      </button>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,43 @@
+<div class="flex flex-col lg:flex-row max-w-[1400px] mx-auto lg:h-screen p-5 lg:p-10">
+  <div class="flex flex-col justify-between flex-grow-[2] lg:flex-1 p-4 lg:p-8 text-neutral-700">
+    <a routerLink="/home" class="self-center mb-5 lg:mb-0 lg:self-auto"><img src="logo-h.png" alt=""></a>
+
+    <div class="mb-6 flex flex-col max-w-[400px] self-center w-full items-center">
+      
+      <h1 class="mb-1 font-semibold text-3xl">Bem vindo de volta!</h1>
+      <p class="mb-6 text-neutral-500">Entre e ajude os helpinho de hoje</p>
+
+      <form [formGroup]="loginForm" (submit)="onSubmit()" class="w-full">
+        <input-text [control]="loginForm.get('email')" class="mb-5" inputType="email" title="Email" placeholder="Seu melhor email"/>
+        <input-text [control]="loginForm.get('password')" class="mb-5" inputType="password" title="Senha"/>
+
+        <div class="mb-5 flex w-full justify-between">
+          <div class="flex gap-2 items-center">
+            <input type="checkbox" id="remember">
+            <label for="remember" class="text-sm font-medium">Lembrar conta</label>
+          </div>
+          <a class="text-sm font-bold text-[#f40b59] hover:text-neutral-500 select-none">Esqueceu a senha?</a>
+        </div>
+
+        <button type="submit" class="mb-4 w-full py-2.5 rounded-lg shadow-sm font-medium bg-[#f40b59] text-white hover:bg-[#d30a4d]">Entrar</button>
+      </form>
+
+      <button class="mb-6 flex justify-center gap-2 w-full py-2.5 border border-neutral-400/70 shadow-sm rounded-lg font-semibold hover:bg-neutral-100 hover:border-neutral-400">
+        <img src="google-icon.png" alt="">
+        <p>Continuar com Google</p>
+      </button>
+
+      <div class="flex gap-1 text-sm">
+        <p>Ainda não faz parte do helpinho?</p>
+        <a routerLink="/signup" class="font-bold text-[#f40b59] hover:text-[#d30a4d]">Registre-se grátis</a>
+      </div>
+    </div>
+
+    <div class="hidden lg:flex justify-between text-sm">
+      <p>© Helpinho 2024</p>
+      <p>{{ 'help@helpinho.com' }}</p>
+    </div>
+  </div>
+
+  <login-carousel class="mx-auto w-full max-w-[675px] h-[320px] lg:h-full lg:flex-1"/>
+</div>
